@@ -4,18 +4,15 @@ F P PID ts
 0 0 1   2 
 1 0 2   3
 
-
-
 simultedOS simOS(7, 1000000, 2000} -> disks, ram, pagesize
 
 each disk has own io queue	
 
+in simulation, do not care about whole program code, when running
+program only need porton of program code copied to ram memory
 
-in our simulation, we dont care about whole program code, when we run 
-program we only need porton of program code copied to ram memory
-
-we are only putting in ram memory the simulated code + mem that our 
-programs are running. not actual code and mem, but table (Above).
+only putting in ram memory the simulated code + mem that the 
+programs are running. not actual code and mem, but table.
 
 PageTable notes:
 **putIntoFrame replaces frame w/ lowest time_stamp
