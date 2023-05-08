@@ -1,0 +1,60 @@
+the page of the process that uses the cpu is the freshest one in memory
+
+F P PID ts
+0 0 1   2 
+1 0 2   3
+
+
+
+simultedOS simOS(7, 1000000, 2000} -> disks, ram, pagesize
+
+each disk has own io queue	
+
+
+in our simulation, we dont care about whole program code, when we run 
+program we only need porton of program code copied to ram memory
+
+we are only putting in ram memory the simulated code + mem that our 
+programs are running. not actual code and mem, but table (Above).
+
+PageTable notes:
+**putIntoFrame replaces frame w/ lowest time_stamp
+**updates timestamp 
+
+**
+numFrames = ram/pagesize
+table of numFrame rows.
+
+possibly add_to_CPU first and that calls putIntoFrame(updateTS). so updateTS first, but have to see if that can work
+
+newProcess(priority) //putIntoFrame (page 0 always and replace lowest TS if frameFull, for cpu pid update use latest page and updateTS it), updateTS{
+                            //if CPU_Queue is empty or higher priority than current cpuPID, add_to_CPU (updates timestamp)
+                            //add cpu to CPU_Queue if nonempty,
+                            ////updateProcessLastUsedPage
+                     }
+fetchFrom(address) //frame = addr/pagesize
+                   
+                   //if page for PID is in pageTable{ updateTS }; 
+                   //if page for PID isn't in pageTable, putIntoFrame(replace lowest TS if frameFull), updateTS
+                   //updateProcessLastUsedPage
+
+diskReadRequested(disk, file) //moves cpu PID to diskQueue, 
+                              //updateCPU for next cpu PID (update timestamp)     
+                              //DONT update pageTable or timestamps
+
+diskComplete(disk) //putIntoFrame just like newProcess (if frame there just update TS) , else addLatestFrame (like fetchFrom and updateTS)
+                   //like newProcess
+                   //if CPU_Queue is empty or higher priority than current cpuPID, add_to_CPU (updates timestamp)
+                   //add cpu to CPU_Queue if nonempty
+
+exit() //remove PID from cpu
+       //remove PID from frame. 
+       //updateCPU for next cpu PID (update timestamp)
+       
+
+each disk gets variable + queue
+
+diskOccupiedVector
+diskQueuesVector (2D vector?)
+
+printDiskQueue() //invalid val check
